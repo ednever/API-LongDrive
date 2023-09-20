@@ -2,11 +2,12 @@
 {
     public class Veoauto : LiikuvAuto
     {
-        List<Tellimus> Tellimus { get; set; }
-        public Veoauto() { }
-        public Veoauto(double pikkus, int mass, int mark) 
-        {
+        public int Id { get; set; }
+        public SoiduPaevik SoiduPaevik { get; set; }
 
+        public Veoauto(double pikkus, int mass, string mark, int tee) : base(pikkus, mass, mark, tee)
+        {
+            
         }
         public void OtsiTellimus(DateTime algus, DateTime lopp)
         {
