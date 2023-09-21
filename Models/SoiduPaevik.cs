@@ -6,11 +6,14 @@ namespace LongDrive.Models
     {
         public int Id { get; set; }
         public Tellimus Tellimus { get; set; }
+        public int TellimusId { get; set; }
         public ICollection<Veoauto> Veoauto { get; }
         public DateTime Algus { get; set; }
         public DateTime Lopp { get; set; }
-        public SoiduPaevik(DateTime algus, DateTime lopp) 
+        public SoiduPaevik(int tellimusId, DateTime algus, DateTime lopp) //Tellimus tellimus, 
         {
+            //Tellimus = tellimus;
+            TellimusId = tellimusId;
             Algus = algus;
             Lopp = lopp;
         }

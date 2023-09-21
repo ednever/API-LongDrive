@@ -1,6 +1,7 @@
 ﻿using LongDrive.Data;
 using LongDrive.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LongDrive.Controllers
 {
@@ -35,7 +36,11 @@ namespace LongDrive.Controllers
 
             if (olemus)
             {
-                _context.Veoautod.Add(new Veoauto(pikkus, mass, mark, tee));
+                _context.Tellimused.Add(new Tellimus("", 0, ""));
+                _context.SaveChanges();
+                _context.SoiduPaevikud.Add(new SoiduPaevik(_context.Tellimused.ToList().Last().Id, DateTime.Now, DateTime.Now));
+                _context.SaveChanges();
+                _context.Veoautod.Add(new Veoauto(_context.Veoautod.ToList().Last().Id, pikkus, mass, mark, tee));
                 _context.SaveChanges();
             }
 
