@@ -21,6 +21,13 @@ namespace LongDrive.Controllers
             return _context.Soiduautod.ToList();
         }
 
+        [HttpGet("{id}")] //Soiduauto näitamine
+        public List<Soiduauto> GetByID()
+        {
+
+            return _context.Soiduautod.ToList();
+        }
+
         [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}")] //Soiduauto lisamine
         public List<Soiduauto> Add(double pikkus, int mass, string mark, int tee)
         {
