@@ -22,10 +22,16 @@ namespace LongDrive.Controllers
         }
 
         [HttpGet("{id}")] //Soiduauto näitamine
-        public List<Soiduauto> GetByID()
+        public Soiduauto GetByID(int id)
         {
-
-            return _context.Soiduautod.ToList();
+            foreach (Soiduauto soiduauto in _context.Soiduautod)
+            {
+                if (soiduauto.Id == id)
+                {
+                    return soiduauto;
+                }
+            }
+            return null;
         }
 
         [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}/{pilt}")] //Soiduauto lisamine
