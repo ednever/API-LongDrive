@@ -28,13 +28,13 @@ namespace LongDrive.Controllers
             return _context.Soiduautod.ToList();
         }
 
-        [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}")] //Soiduauto lisamine
-        public List<Soiduauto> Add(double pikkus, int mass, string mark, int tee)
+        [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}/{pilt}")] //Soiduauto lisamine
+        public List<Soiduauto> Add(double pikkus, int mass, string mark, int tee, string pilt)
         {
             bool olemus = true;
             foreach (Soiduauto soiduauto in _context.Soiduautod)
             {
-                if (soiduauto.Pikkus == pikkus && soiduauto.Mass == mass)
+                if (soiduauto.Pikkus == pikkus && soiduauto.Mass == mass && soiduauto.Pilt == pilt)
                 {
                     olemus = false;
                 }
@@ -42,7 +42,7 @@ namespace LongDrive.Controllers
 
             if (olemus)
             {
-                _context.Soiduautod.Add(new Soiduauto(pikkus, mass, mark, tee));
+                _context.Soiduautod.Add(new Soiduauto(pikkus, mass, mark, tee, pilt));
                 _context.SaveChanges();
             }
 
