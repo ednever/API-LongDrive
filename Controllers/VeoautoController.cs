@@ -72,5 +72,21 @@ namespace LongDrive.Controllers
             _context.SaveChanges();
             return _context.Veoautod.ToList();
         }
+
+        [HttpGet("soidupaevik/{id}")] //Veoauto sõidupäeviku näitamine
+        public SoiduPaevik GetSoidupaevik(int id)
+        {
+            int soiduPaevikId;
+            foreach (Veoauto veoauto in _context.Veoautod)
+            {
+                if (veoauto.Id == id)
+                {
+                    soiduPaevikId = veoauto.SoiduPaevikId; 
+                    break;
+                }
+            }
+
+            return null;
+        }
     }
 }
