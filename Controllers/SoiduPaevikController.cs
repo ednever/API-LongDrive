@@ -16,10 +16,23 @@ namespace LongDrive.Controllers
             _context = context;
         }
 
-        [HttpGet] //SoiduPaeviku näitamine
+        [HttpGet] //SoiduPaevikute näitamine
         public List<SoiduPaevik> Get()
         {
             return _context.SoiduPaevikud.ToList();
+        }
+
+        [HttpGet("{id}")] //SoiduPaeviku näitamine
+        public SoiduPaevik GetByID(int id)
+        {
+            foreach (SoiduPaevik soiduPaevik in _context.SoiduPaevikud)
+            {
+                if (soiduPaevik.Id == id)
+                {
+                    return soiduPaevik;
+                }
+            }
+            return null;
         }
 
         [HttpPost("lisa/{algus}/{lopp}")] //SoiduPaeviku lisamine
