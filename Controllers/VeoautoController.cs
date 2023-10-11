@@ -22,6 +22,19 @@ namespace LongDrive.Controllers
             return _context.Veoautod.ToList();
         }
 
+        [HttpGet("{id}")] //Veoauto näitamine
+        public Veoauto GetByID(int id)
+        {
+            foreach (Veoauto veoauto in _context.Veoautod)
+            {
+                if (veoauto.Id == id)
+                {
+                    return veoauto;
+                }
+            }
+            return null;
+        }
+
         [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}")] //Veoauto lisamine
         public List<Veoauto> Add(double pikkus, int mass, string mark, int tee)
         {

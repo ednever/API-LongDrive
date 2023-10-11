@@ -37,18 +37,20 @@ namespace LongDrive.Controllers
         [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}/{pilt}")] //Soiduauto lisamine
         public List<Soiduauto> Add(double pikkus, int mass, string mark, int tee, string pilt)
         {
+            string newPilt = pilt.Replace("%2F", "/");
             bool olemus = true;
             foreach (Soiduauto soiduauto in _context.Soiduautod)
             {
-                if (soiduauto.Pikkus == pikkus && soiduauto.Mass == mass && soiduauto.Pilt == pilt)
+                if (soiduauto.Pikkus == pikkus && soiduauto.Mass == mass && soiduauto.Pilt == newPilt)
                 {
                     olemus = false;
                 }
             }
+            //менять ссылку
 
             if (olemus)
             {
-                _context.Soiduautod.Add(new Soiduauto(pikkus, mass, mark, tee, pilt));
+                _context.Soiduautod.Add(new Soiduauto(pikkus, mass, mark, tee, newPilt));
                 _context.SaveChanges();
             }
 
