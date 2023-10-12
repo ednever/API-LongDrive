@@ -53,7 +53,7 @@ namespace LongDrive.Controllers
                 _context.SaveChanges();
                 _context.SoiduPaevikud.Add(new SoiduPaevik(_context.Tellimused.ToList().Last().Id, DateTime.Now, DateTime.Now));
                 _context.SaveChanges();
-                _context.Veoautod.Add(new Veoauto(_context.Veoautod.ToList().Last().Id, pikkus, mass, mark, tee));
+                _context.Veoautod.Add(new Veoauto(_context.SoiduPaevikud.ToList().Last().Id, pikkus, mass, mark, tee));
                 _context.SaveChanges();
             }
 
@@ -72,21 +72,5 @@ namespace LongDrive.Controllers
             _context.SaveChanges();
             return _context.Veoautod.ToList();
         }
-
-        //[HttpGet("soidupaevik/{id}")] //Veoauto sõidupäeviku näitamine
-        //public SoiduPaevik GetSoidupaevik(int id)
-        //{
-        //    int soiduPaevikId;
-        //    foreach (Veoauto veoauto in _context.Veoautod)
-        //    {
-        //        if (veoauto.Id == id)
-        //        {
-        //            soiduPaevikId = veoauto.SoiduPaevikId; 
-        //            break;
-        //        }
-        //    }
-
-        //    return null;
-        //}
     }
 }
