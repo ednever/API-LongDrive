@@ -22,6 +22,19 @@ namespace LongDrive.Controllers
             return _context.Tellimused.ToList();
         }
 
+        [HttpGet("{id}")] //Tellimuse näitamine
+        public Tellimus GetByID(int id)
+        {
+            foreach (Tellimus tellimus in _context.Tellimused)
+            {
+                if (tellimus.Id == id)
+                {
+                    return tellimus;
+                }
+            }
+            return null;
+        }
+
         [HttpPost("lisa/{nimi}/{vahemaa}/{kirjeldus}")] //Tellimuse lisamine
         public List<Tellimus> Add(string nimi, int vahemaa, string kirjeldus)
         {
