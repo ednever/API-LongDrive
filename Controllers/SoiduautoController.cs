@@ -35,7 +35,7 @@ namespace LongDrive.Controllers
         }
 
         [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}/{pilt}")] //Soiduauto lisamine
-        public List<Soiduauto> Add(double pikkus, int mass, string mark, int tee, string pilt)
+        public void Add(double pikkus, int mass, string mark, int tee, string pilt)//List<Soiduauto> Add(double pikkus, int mass, string mark, int tee, string pilt)
         {
             bool olemus = true;
             foreach (Soiduauto soiduauto in _context.Soiduautod)
@@ -53,7 +53,7 @@ namespace LongDrive.Controllers
                 _context.SaveChanges();
             }
 
-            return _context.Soiduautod.ToList();
+            //return _context.Soiduautod.ToList();
         }
 
         [HttpDelete("kustuta/{id}")] //Soiduauto kustutamine
