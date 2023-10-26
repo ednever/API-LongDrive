@@ -35,8 +35,8 @@ namespace LongDrive.Controllers
             return null;
         }
 
-        [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}")] //Veoauto lisamine
-        public List<Veoauto> Add(double pikkus, int mass, string mark, int tee)
+        [HttpPost("lisa/{pikkus}/{mass}/{mark}")] //Veoauto lisamine
+        public List<Veoauto> Add(double pikkus, int mass, string mark)
         {
             bool olemus = true;
             foreach (Veoauto veoauto in _context.Veoautod)
@@ -49,11 +49,7 @@ namespace LongDrive.Controllers
 
             if (olemus)
             {
-                _context.Tellimused.Add(new Tellimus("", 0, ""));
-                _context.SaveChanges();
-                _context.SoiduPaevikud.Add(new SoiduPaevik(_context.Tellimused.ToList().Last().Id, DateTime.Now, DateTime.Now));
-                _context.SaveChanges();
-                _context.Veoautod.Add(new Veoauto(_context.SoiduPaevikud.ToList().Last().Id, pikkus, mass, mark, tee));
+                _context.Veoautod.Add(new Veoauto(pikkus, mass, mark, DateTime.Now, DateTime.Now));
                 _context.SaveChanges();
             }
 

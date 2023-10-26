@@ -49,7 +49,7 @@ namespace LongDrive.Controllers
 
             if (olemus)
             {
-                _context.Tellimused.Add(new Tellimus(nimi, vahemaa, kirjeldus));
+                _context.Tellimused.Add(new Tellimus(nimi, vahemaa, kirjeldus, true));
                 _context.SaveChanges();
             }
 

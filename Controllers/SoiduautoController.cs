@@ -6,7 +6,7 @@ namespace LongDrive.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class SoiduautoController : ControllerBase //Прописать в js, что максимальная масса т.е. цифра в input number = 3500
+    public class SoiduautoController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
@@ -34,26 +34,26 @@ namespace LongDrive.Controllers
             return null;
         }
 
-        [HttpPost("lisa/{pikkus}/{mass}/{mark}/{tee}/{pilt}")] //Soiduauto lisamine
-        public void Add(double pikkus, int mass, string mark, int tee, string pilt)//List<Soiduauto> Add(double pikkus, int mass, string mark, int tee, string pilt)
+        [HttpPost("lisa/{pikkus}/{mass}/{mark}/{pilt}")] //Soiduauto lisamine
+        public List<Soiduauto> Add(double pikkus, int mass, string mark, string pilt)
         {
+            string newPilt = pilt.Replace("%2F", "/");
             bool olemus = true;
             foreach (Soiduauto soiduauto in _context.Soiduautod)
             {
-                if (soiduauto.Pikkus == pikkus && soiduauto.Mass == mass && soiduauto.Pilt == pilt)
+                if (soiduauto.Pikkus == pikkus && soiduauto.Mass == mass && soiduauto.Pilt == newPilt)
                 {
                     olemus = false;
                 }
             }
-            //менять ссылку
 
             if (olemus)
             {
-                _context.Soiduautod.Add(new Soiduauto(pikkus, mass, mark, tee, pilt));
+                _context.Soiduautod.Add(new Soiduauto(pikkus, mass, mark, newPilt));
                 _context.SaveChanges();
             }
 
-            //return _context.Soiduautod.ToList();
+            return _context.Soiduautod.ToList();
         }
 
         [HttpDelete("kustuta/{id}")] //Soiduauto kustutamine

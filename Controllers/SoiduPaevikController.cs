@@ -7,7 +7,7 @@ namespace LongDrive.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class SoiduPaevikController : ControllerBase //Прописать в js, что максимальная масса т.е. цифра в input number = 3500
+    public class SoiduPaevikController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
@@ -35,13 +35,13 @@ namespace LongDrive.Controllers
             return null;
         }
 
-        [HttpPost("lisa/{algus}/{lopp}")] //SoiduPaeviku lisamine
-        public List<SoiduPaevik> Add(DateTime algus, DateTime lopp)
+        [HttpPost("lisa/{aeg}/{veoautoId}/{tellimusid}")] //SoiduPaeviku lisamine
+        public List<SoiduPaevik> Add(DateTime aeg, int veoautoId, int tellimusId)
         {
             bool olemus = true;
             foreach (SoiduPaevik soiduPaevik in _context.SoiduPaevikud)
             {
-                if (soiduPaevik.Algus == algus && soiduPaevik.Lopp == lopp)
+                if (soiduPaevik.VeoautoId == veoautoId && soiduPaevik.TellimusId == tellimusId)
                 {
                     olemus = false;
                 }
@@ -49,9 +49,7 @@ namespace LongDrive.Controllers
 
             if (olemus)
             {
-                _context.Tellimused.Add(new Tellimus("", 0, ""));
-                _context.SaveChanges();
-                _context.SoiduPaevikud.Add(new SoiduPaevik(_context.Tellimused.Last().Id, algus, lopp));
+                _context.SoiduPaevikud.Add(new SoiduPaevik(aeg, veoautoId, tellimusId));
                 _context.SaveChanges();
             }
 

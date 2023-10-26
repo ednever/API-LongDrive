@@ -1,18 +1,19 @@
 ﻿namespace LongDrive.Models
 {
-    public class Veoauto : LiikuvAuto
+    public class Veoauto : Auto
     {
-        public int Id { get; set; }
-        public SoiduPaevik SoiduPaevik { get; set; }
-        public int SoiduPaevikId { get; set; }
-
-        public Veoauto(int soiduPaevikId, double pikkus, int mass, string mark, int tee) : base(pikkus, mass, mark, tee) //SoiduPaevik soiduPaevik, 
+        public int Id { get; set; }       
+        public DateTime Algus { get; set; }
+        public DateTime Lopp { get; set; }
+        public ICollection<SoiduPaevik> SoiduPaevik { get; }
+        public Veoauto(double pikkus, int mass, string mark, DateTime algus, DateTime lopp) : base(pikkus, mass, mark)
         {
-            SoiduPaevikId = soiduPaevikId;
-        }
-        public void OtsiTellimus(DateTime algus, DateTime lopp)
-        {
-
+            Algus = algus;
+            Lopp = lopp;
         }
     }
 }
+
+//Грузовик(длина, масса, марка, начало, конец)
+//ДневникЗаказов(время доставки, ГрузовикID, ЗаказID)
+//Заказ(название, расстояние, описание)

@@ -1,21 +1,18 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace LongDrive.Models
+﻿namespace LongDrive.Models
 {
     public class SoiduPaevik
     {
         public int Id { get; set; }
+        public DateTime Aeg { get; set; }
+        public Veoauto Veoauto { get; set; }
+        public int VeoautoId { get; set; }
         public Tellimus Tellimus { get; set; }
-        public int TellimusId { get; set; }
-        public ICollection<Veoauto> Veoauto { get; }
-        public DateTime Algus { get; set; }
-        public DateTime Lopp { get; set; }
-        public SoiduPaevik(int tellimusId, DateTime algus, DateTime lopp) //Tellimus tellimus, 
+        public int TellimusId { get; set; }           
+        public SoiduPaevik(DateTime aeg, int veoautoId, int tellimusId)
         {
-            //Tellimus = tellimus;
+            Aeg = aeg;
+            VeoautoId = veoautoId;
             TellimusId = tellimusId;
-            Algus = algus;
-            Lopp = lopp;
         }
     }
 }

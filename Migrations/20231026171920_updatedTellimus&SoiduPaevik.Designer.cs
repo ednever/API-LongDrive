@@ -4,6 +4,7 @@ using LongDrive.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LongDrive.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231026171920_updatedTellimus&SoiduPaevik")]
+    partial class updatedTellimusSoiduPaevik
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,20 +33,13 @@ namespace LongDrive.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Aeg")
+                    b.Property<DateTime>("Algus")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TellimusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VeoautoId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Lopp")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TellimusId");
-
-                    b.HasIndex("VeoautoId");
 
                     b.ToTable("SoiduPaevikud");
                 });
@@ -70,6 +66,9 @@ namespace LongDrive.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Tee")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Soiduautod");
@@ -83,9 +82,6 @@ namespace LongDrive.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Kirjeldus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,10 +90,15 @@ namespace LongDrive.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SoiduPaevikId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Vahemaa")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SoiduPaevikId");
 
                     b.ToTable("Tellimused");
                 });
@@ -110,12 +111,6 @@ namespace LongDrive.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Algus")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Lopp")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Mark")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -126,38 +121,46 @@ namespace LongDrive.Migrations
                     b.Property<double>("Pikkus")
                         .HasColumnType("float");
 
+                    b.Property<int>("SoiduPaevikId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tee")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SoiduPaevikId");
 
                     b.ToTable("Veoautod");
                 });
 
-            modelBuilder.Entity("LongDrive.Models.SoiduPaevik", b =>
-                {
-                    b.HasOne("LongDrive.Models.Tellimus", "Tellimus")
-                        .WithMany("SoiduPaevik")
-                        .HasForeignKey("TellimusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LongDrive.Models.Veoauto", "Veoauto")
-                        .WithMany("SoiduPaevik")
-                        .HasForeignKey("VeoautoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tellimus");
-
-                    b.Navigation("Veoauto");
-                });
-
             modelBuilder.Entity("LongDrive.Models.Tellimus", b =>
                 {
+                    b.HasOne("LongDrive.Models.SoiduPaevik", "SoiduPaevik")
+                        .WithMany("Tellimus")
+                        .HasForeignKey("SoiduPaevikId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("SoiduPaevik");
                 });
 
             modelBuilder.Entity("LongDrive.Models.Veoauto", b =>
                 {
+                    b.HasOne("LongDrive.Models.SoiduPaevik", "SoiduPaevik")
+                        .WithMany("Veoauto")
+                        .HasForeignKey("SoiduPaevikId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("SoiduPaevik");
+                });
+
+            modelBuilder.Entity("LongDrive.Models.SoiduPaevik", b =>
+                {
+                    b.Navigation("Tellimus");
+
+                    b.Navigation("Veoauto");
                 });
 #pragma warning restore 612, 618
         }
