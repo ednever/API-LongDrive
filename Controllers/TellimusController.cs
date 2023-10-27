@@ -68,5 +68,23 @@ namespace LongDrive.Controllers
             _context.SaveChanges();
             return _context.Tellimused.ToList();
         }
+
+        [HttpPut("muuda/{id}")] //Обновление артикля
+        public Tellimus ChangeActive(int id)
+        {
+            var tellimus = _context.Tellimused.Find(id);
+
+            if (tellimus == null)
+            {
+                return null;
+            }
+
+            tellimus.IsActive = false;
+
+            _context.Tellimused.Update(tellimus);
+            _context.SaveChanges();
+
+            return tellimus;
+        }
     }
 }

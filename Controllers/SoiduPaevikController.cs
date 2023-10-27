@@ -35,8 +35,8 @@ namespace LongDrive.Controllers
             return null;
         }
 
-        [HttpPost("lisa/{aeg}/{veoautoId}/{tellimusid}")] //SoiduPaeviku lisamine
-        public List<SoiduPaevik> Add(DateTime aeg, int veoautoId, int tellimusId)
+        [HttpPost("lisa/{veoautoId}/{tellimusId}")] //SoiduPaeviku lisamine
+        public List<SoiduPaevik> Add(int veoautoId, int tellimusId)
         {
             bool olemus = true;
             foreach (SoiduPaevik soiduPaevik in _context.SoiduPaevikud)
@@ -49,7 +49,7 @@ namespace LongDrive.Controllers
 
             if (olemus)
             {
-                _context.SoiduPaevikud.Add(new SoiduPaevik(aeg, veoautoId, tellimusId));
+                _context.SoiduPaevikud.Add(new SoiduPaevik(DateTime.Now, veoautoId, tellimusId));
                 _context.SaveChanges();
             }
 
@@ -70,5 +70,3 @@ namespace LongDrive.Controllers
         }
     }
 }
-//Выбрать заказ или добавить новый
-//
