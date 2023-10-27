@@ -35,6 +35,28 @@ namespace LongDrive.Controllers
             return null;
         }
 
+        [HttpGet("otsi/{veoautoId}")] //SoiduPaeviku näitamine
+        public List<SoiduPaevik> GetTellimusedByCarId(int veoautoId)
+        {
+            List<SoiduPaevik> tellimused = new List<SoiduPaevik>();
+
+            //List<string> strings = new List<string>();
+
+            foreach (SoiduPaevik soiduPaevik in _context.SoiduPaevikud)
+            {
+                if (soiduPaevik.VeoautoId == veoautoId)
+                {
+                    //Tellimus tellimus = _context.Tellimused.Find(soiduPaevik.TellimusId);
+                    //strings.Add(soiduPaevik.Aeg + ", " + tellimus.Nimi + ", " + tellimus.Kirjeldus); //.ToString()
+
+                    tellimused.Add(soiduPaevik);
+                }
+            }
+
+            return tellimused;
+            //return strings;
+        }
+
         [HttpPost("lisa/{veoautoId}/{tellimusId}")] //SoiduPaeviku lisamine
         public List<SoiduPaevik> Add(int veoautoId, int tellimusId)
         {
